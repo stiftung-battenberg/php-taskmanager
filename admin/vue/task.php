@@ -30,12 +30,9 @@
         <h3>Generate task</h3>
         <div class="form-group mt-3">
             <label>From</label>
-            <input type="date"  class="form-control" name="from">
+            <input type="date"  class="form-control" name="from" value="<?php echo (new DateTime)->format('Y-m-d'); ?>">
         </div>
-        <div class="form-group mt-3">
-            <label>To</label>
-            <input type="date"  class="form-control" name="to">
-        </div>
+
         <button type="submit" class="btn btn-primary mt-3">Generate task</button>
     </form>
     <!-- Modal -->

@@ -1,5 +1,11 @@
 <?php
-
+/**
+ * Create an task
+ * @param string $name of the task  
+ * @param string $color of the task
+ * @param array $weekdays on which the task should complete must be an array
+ * @param integer $group_ids
+ */
 function createTask ($name, $color, $weekdays, $group_ids) {
     $task = R::dispense( 'task' );
     $task->name = $name;
@@ -12,6 +18,14 @@ function createTask ($name, $color, $weekdays, $group_ids) {
     R::store($task);
 }
 
+/**
+ * updates an task
+ * @param integer $id of the task  
+ * @param string $name of the task  
+ * @param string $color of the task
+ * @param array $weekdays on which the task should complete must be an array
+ * @param integer $group_ids
+ */
 function updateTask ($id, $name, $color, $weekdays, $group_ids) {
     $task = R::load('task', $id);
     $task->name = $name;
@@ -28,17 +42,37 @@ function updateTask ($id, $name, $color, $weekdays, $group_ids) {
     R::store($task);
 }
 
+/**
+ * deletes an task
+ * @param integer $id of the task
+ */
 function deleteTask($id) {
     $task = R::load( 'task', $id ); 
     R::trash($task);
 }
 
+/**
+ * Find all tasks
+ * @return array of redbean objects
+ */
 function getTasks() {
     return R::findAll( 'task' );
 }
 
+/**
+ * Attributes tasks to users between the given dates
+ * @param DateTime object $from
+ * @param DateTime object $to 
+ */
 function gennerateTasks($from, $to){
-    R::wipe( 'tasked' );
+    // Deletes task who are set in the futur
+    $tasked = R::findAll( 'tasked' );
+
+    foreach ($tasked as $t) {
+        if(new DateTime($t->start) >= $from) {
+            R::trash($t);
+        }
+    }
 
     $tasks = R::findAll( 'task' );
 
@@ -55,11 +89,15 @@ function gennerateTasks($from, $to){
             }
 
             if (in_array($objDateTime->format('l'), $weekdays)) {
-
-                $userLeast = getUsersWithLeastTask($users);
+            
+                $userLeast = getUsersWithLeastTask($users)[0];
                 $tasked = R::dispense( 'tasked' );
-                $tasked->title = $userLeast[0]->name; 
-                $tasked->user =  $userLeast[0];
+                $tasked->title = $userLeast->name; 
+                $tasked->user =  $userLeast;
+
+                $userLeast->doneTask = true;
+                R::store($userLeast);
+
                 $tasked->start = $objDateTime; 
                 $tasked->color = $task->color;
                 $tasked->task = $task;
@@ -70,6 +108,7 @@ function gennerateTasks($from, $to){
     } 
 }
 
+// No idea what this is about but why not 
 function checkRelation ($group, $groupList){
     $result = false;
 
@@ -82,25 +121,35 @@ function checkRelation ($group, $groupList){
     return $result;
 }
 
+/**
+ * Searches users who have done the least task 
+ * @param $user array of redbean objects list of users to check
+ * @return $user array of redbean objects
+ */
 function getUsersWithLeastTask($user) {
-    $least = 1000;
     $usersOutput = [];
+    
     foreach ($user as $u) {
-        if($least > count($u->ownTaskedList)) {
-            $least = count($u->ownTaskedList);
+        if (! $u->doneTask) {
+            $usersOutput[] = $u;
         }
     }
-    print($least);
-    foreach ($user as $u) {
-        if (count($u->ownTaskedList) == $least) {
-            $usersOutput[] = $u;
-            
+    
+    if ($usersOutput == []) {
+        foreach ($user as $u) {
+            $u->doneTask = false;
+            R::store($u);
         }
+        $usersOutput = $user;
     }
     
     return $usersOutput;
 }
 
+/**
+ * Formats the tasked task to be display in full callenndar
+ * @return 
+ */
 function getTaskedAdmin() {
     $taskeds = R::findAll( 'tasked' );
     $array = [];
@@ -116,6 +165,10 @@ function getTaskedAdmin() {
     return $array;
 }
 
+/**
+ * Formats the tasked task to be display in full callenndar
+ * @return 
+ */
 function getTasked() {
     $taskeds = R::findAll( 'tasked' );
     $array = [];
@@ -130,6 +183,10 @@ function getTasked() {
     return $array;
 }
 
+/**
+ * changes the current holder of a task 
+ * @param integer $tasked_id 
+ */
 function changePersonForTask ($tasked_id) {
     $tasked = R::load('tasked', $tasked_id);
     $users = [];
@@ -139,6 +196,7 @@ function changePersonForTask ($tasked_id) {
     $user = getUsersWithLeastTask($users)[0];
     $tasked->title = $user->name; 
     $tasked->user =  $user;
-
+    $user->doneTask = true;
+    R::store($user);
     R::store($tasked);
 }
