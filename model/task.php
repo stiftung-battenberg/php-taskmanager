@@ -65,6 +65,12 @@ function getTasks() {
  * @param DateTime object $to 
  */
 function gennerateTasks($from, $to){
+    $user = R::findAll('user');
+    foreach($user as $u){
+        $u->doneTask = 0;
+        R::store($u);
+    }
+    
     // Deletes task who are set in the futur
     $tasked = R::findAll( 'tasked' );
 
@@ -81,22 +87,18 @@ function gennerateTasks($from, $to){
 
     while($objDateTime <=  $to){
         foreach($tasks as $task) {
-
             $weekdays = json_decode($task->weekdays);
-            $users = [];
-            foreach ($task->sharedGroup as $group) {
-                $users = array_merge($users, $group->ownUserList);
-            }
-
             if (in_array($objDateTime->format('l'), $weekdays)) {
-            
-                $userLeast = getUsersWithLeastTask($users)[0];
+                $users = [];
+                foreach ($task->sharedGroup as $group) {
+                    $users = array_merge($users, $group->ownUserList);
+                }
+
+                $userLeast = getUserWithLeastTask($users);
                 $tasked = R::dispense( 'tasked' );
                 $tasked->title = $userLeast->name; 
                 $tasked->user =  $userLeast;
 
-                $userLeast->doneTask = true;
-                R::store($userLeast);
 
                 $tasked->start = $objDateTime; 
                 $tasked->color = $task->color;
@@ -126,24 +128,24 @@ function checkRelation ($group, $groupList){
  * @param $user array of redbean objects list of users to check
  * @return $user array of redbean objects
  */
-function getUsersWithLeastTask($user) {
+function getUserWithLeastTask($user) {
+    $least = 1000000000;
     $usersOutput = [];
-    
     foreach ($user as $u) {
-        if (! $u->doneTask) {
+        if($least > $u->doneTask) {
+            $least = $u->doneTask;
+        }
+    }
+    foreach ($user as $u) {
+        if ($u->doneTask == $least) {
             $usersOutput[] = $u;
+            
         }
     }
     
-    if ($usersOutput == []) {
-        foreach ($user as $u) {
-            $u->doneTask = false;
-            R::store($u);
-        }
-        $usersOutput = $user;
-    }
-    
-    return $usersOutput;
+    $usersOutput[0]->doneTask += 1;
+    R::store($usersOutput[0]);
+    return $usersOutput[0];
 }
 
 /**
@@ -193,10 +195,8 @@ function changePersonForTask ($tasked_id) {
     foreach ($tasked->task->sharedGroup as $group) {
         $users = array_merge($users, $group->ownUserList);
     }
-    $user = getUsersWithLeastTask($users)[0];
+    $user = getUserWithLeastTask($users);
     $tasked->title = $user->name; 
     $tasked->user =  $user;
-    $user->doneTask = true;
-    R::store($user);
     R::store($tasked);
 }

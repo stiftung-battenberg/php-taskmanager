@@ -4,7 +4,7 @@ function createUser ($name, $email) {
     $user = R::dispense( 'user' );
     $user->name = $name;
     $user->email = $email;
-    $user->doneTask = false;
+    $user->doneTask = 0;
     return R::store( $user );
 }
 
