@@ -11,7 +11,7 @@ foreach ($tasked as $t){
     $date = new DateTime($t->start);
     if($date == $now){        
         $message = "Vous devez " . $t->task->name . " le " . $date->format('d m Y') . '.';
-        print($message);
+
         $headers = array(
             'From' => 'ramon.odermatt@lesjoux.ch',
             'Reply-To' => 'ramon.odermatt@lesjoux.ch',
