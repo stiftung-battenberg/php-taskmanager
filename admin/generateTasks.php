@@ -2,6 +2,7 @@
 session_start();
 
 if($_SESSION["login"]) {
+    require '../config.php';
     include '../utils/connectdb.php';
     require '../model/task.php';
     if(isset($_POST['from'])) {

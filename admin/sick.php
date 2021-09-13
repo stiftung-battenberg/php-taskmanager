@@ -2,6 +2,7 @@
 session_start();
 
 if($_SESSION["login"]) {
+    require '../config.php';
     include '../utils/connectdb.php';
     require 'vue/partials/header.php';
     include 'vue/partials/nav.php';
@@ -10,7 +11,7 @@ if($_SESSION["login"]) {
 
     if(isset($_POST['tasked_id'])){
         changePersonForTask( $_POST['tasked_id'] );
-        header("Location: /admin/callendar.php");;
+        header("Location: /admin/callendar.php");
     }
     
 } else {

@@ -5,6 +5,7 @@ session_start();
 
 if($_SESSION["login"]) {
 
+    require '../config.php';
     require 'vue/partials/header.php';
     include '../utils/connectdb.php';
     include '../model/user.php';

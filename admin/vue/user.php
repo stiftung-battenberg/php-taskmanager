@@ -8,7 +8,7 @@
   <table class="table">
         <thead>
             <tr>
-            <th scope="col">Nom et prénom</th>
+            <th scope="col">First and lastname</th>
             <th scope="col">Email</th>
             <th scope="col"></th>
             <th scope="col"></th>

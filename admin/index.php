@@ -1,8 +1,9 @@
 <?php
 session_start();
+include '../config.php';
 
-$username = "admin";
-$password = "Admlocal1";
+$username = ADMIN_USER;
+$password = ADMIN_PASS;
 
 if (isset($_POST['password']) && isset( $_POST['username']) ){
     if($password == $_POST['password'] && $username == $_POST['username']) {

@@ -2,7 +2,7 @@
 session_start();
 
 if($_SESSION["login"]) {
-
+require '../config.php';
 require 'vue/partials/header.php';
 include '../utils/connectdb.php';
 require '../model/task.php';
@@ -34,4 +34,7 @@ $task = getTasks();
 </div>
 <?php
 require 'vue/partials/footer.php';
-}
+} else {
+    header("Location: /admin/");
+} 
+

@@ -1,6 +1,7 @@
 <?php
+require 'config.php';
 require 'vue/partials/header.php';
-include 'utils/connectdb.php';
+require 'utils/connectdb.php';
 require 'model/task.php';
 
 $task = getTasks();
