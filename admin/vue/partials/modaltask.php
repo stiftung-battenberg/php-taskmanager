@@ -10,7 +10,7 @@
             <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <form method="POST">
+        <form method="POST" class="task">
             <input type="hidden"  name="action"  value="updateTask">
             <input type="hidden"  name="id"  value="<?php echo $t->id; ?>">
                 <div class="modal-body">
@@ -20,7 +20,8 @@
                 </div>
                 <div class="form-group mt-3">
                     <label>Color</label>
-                    <input type="text" class="form-control" id="color" name="color" value="<?php echo $t->color; ?>" placeholder="color">
+                    <input type="text" class="form-control color-picker" id="color" name="color" value="<?php echo $t->color; ?>" placeholder="color">
+                    <button class="picker btn btn-primary" height="20px" width="20px"></button>
                 </div>
                 <div class="form-group mt-3">
                     <label>Weekday</label>

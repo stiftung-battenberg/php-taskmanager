@@ -101,7 +101,6 @@ function gennerateTasks($from, $to){
 
 
                 $tasked->start = $objDateTime; 
-                $tasked->color = $task->color;
                 $tasked->task = $task;
                 R::store($tasked);
             }
@@ -158,8 +157,8 @@ function getTaskedAdmin() {
     foreach ($taskeds as $tasked) {
         $task['title'] = $tasked->title;
         $task['start'] = $tasked->start;
-        $task['backgroundColor'] = $tasked->color;
-        $task['borderColor'] = $tasked->color;
+        $task['backgroundColor'] = $tasked->task->color;
+        $task['borderColor'] = $tasked->task->color;
         $task['allDay'] = true;
         $task['url'] = '/admin/sick.php?tasked_id=' . $tasked->id;
         $array[] = $task;
@@ -177,8 +176,8 @@ function getTasked() {
     foreach ($taskeds as $tasked) {
         $task['title'] = $tasked->title;
         $task['start'] = $tasked->start;
-        $task['backgroundColor'] = $tasked->color;
-        $task['borderColor'] = $tasked->color;
+        $task['backgroundColor'] = $tasked->task->color;
+        $task['borderColor'] = $tasked->task->color;
         $task['allDay'] = true;
         $array[] = $task;
     }
@@ -189,13 +188,25 @@ function getTasked() {
  * changes the current holder of a task 
  * @param integer $tasked_id 
  */
-function changePersonForTask ($tasked_id) {
+function randomPersonForTask ($tasked_id) {
     $tasked = R::load('tasked', $tasked_id);
     $users = [];
     foreach ($tasked->task->sharedGroup as $group) {
         $users = array_merge($users, $group->ownUserList);
     }
     $user = getUserWithLeastTask($users);
+    $tasked->title = $user->name; 
+    $tasked->user =  $user;
+    R::store($tasked);
+}
+/**
+ * changes the current holder of a task for the given $user
+ * @param integer $tasked_id 
+ * @param integer $user 
+ */
+function changePersonForTask ($tasked_id, $user) {
+    $tasked = R::load('tasked', $tasked_id);
+    $user = R::load('user', $user);
     $tasked->title = $user->name; 
     $tasked->user =  $user;
     R::store($tasked);

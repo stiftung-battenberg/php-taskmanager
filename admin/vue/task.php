@@ -45,7 +45,7 @@
             <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <form method="POST">
+        <form method="POST" class="task">
             <input type="hidden"  name="action"  value="createTask">
             <div class="modal-body">
                 <div class="form-group">
@@ -55,6 +55,7 @@
                 <div class="form-group">
                     <label>Color</label>
                     <input type="text" class="form-control" id="color" name="color" value="" placeholder="color">
+                    <button class="picker btn btn-primary" height="20px" width="20px"></button>
                 </div>
                 <div class="form-group mt-3">
                 <label>Weekdays</label>
