@@ -28,3 +28,4 @@ function deleteUser($id) {
 function getUserByGroup($group_id) {
     return R::find('user', 'group_id = '. $group_id);
 }
+

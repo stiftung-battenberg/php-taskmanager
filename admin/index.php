@@ -1,12 +1,13 @@
 <?php
 session_start();
 include '../config.php';
+include '../utils/connectdb.php';
+require '../model/admin.php';
 
-$username = ADMIN_USER;
-$password = ADMIN_PASS;
+createDefaultAdmin(DEFAULT_ADMIN_USER, DEFAULT_ADMIN_PASS);
 
 if (isset($_POST['password']) && isset( $_POST['username']) ){
-    if($password == $_POST['password'] && $username == $_POST['username']) {
+    if(checkAdmin($_POST['username'], $_POST['password'])) {
         $_SESSION["login"] = true;
     }
 }

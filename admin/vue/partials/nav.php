@@ -9,6 +9,7 @@
             <a class="nav-link" href="/admin/group.php">Group</a>
             <a class="nav-link" href="/admin/task.php">Task</a>
             <a class="nav-link" href="/admin/callendar.php">Callendar</a>
+            <a class="nav-link" href="/admin/admin.php">Admin</a>
         </div>
         </div>
     </div>
