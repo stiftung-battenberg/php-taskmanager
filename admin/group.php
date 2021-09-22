@@ -11,7 +11,7 @@ if($_SESSION["login"]) {
     $group = getGroup();
 
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
-        if ($_POST['method'] == 'DELETE') {
+        if (isset($_POST['method']) and $_POST['method'] == 'DELETE') {
             deleteGroup($_POST['id']);
         } else {
             createGroup($_POST['name']);
