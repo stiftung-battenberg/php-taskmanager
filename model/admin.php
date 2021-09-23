@@ -1,17 +1,17 @@
 <?php 
 
 function createAdmin ($name, $password) {
-    $user = R::dispense( 'admin' );
-    $user->name = $name;
-    $user->password = password_hash($password, PASSWORD_BCRYPT);
-    return R::store( $user );
+    $admin = R::dispense( 'admin' );
+    $admin->name = $name;
+    $admin->password = password_hash($password, PASSWORD_BCRYPT);
+    return R::store( $admin );
 }
 
 function updateAdmin($id, $name, $password) {
-    $user = R::load( 'admin', $id );
-    $user->name = $name;
-    $user->password = password_hash($password, PASSWORD_BCRYPT);
-    R::store( $user );
+    $admin = R::load( 'admin', $id );
+    $admin->name = $name;
+    $admin->password = password_hash($password, PASSWORD_BCRYPT);
+    R::store( $admin );
 }
 
 function checkAdmin ($name, $password) {
@@ -26,21 +26,18 @@ function checkAdmin ($name, $password) {
 }
 
 function getAdmin() {
-    $users = R::findAll( 'admin' );
-    return $users;
+    $admin = R::findAll( 'admin' );
+    return $admin;
 }
 
 function deleteAdmin($id) {
-    $user = R::load( 'admin', $id ); 
-    R::trash( $user );
+    $admin = R::load( 'admin', $id ); 
+    R::trash( $admin );
 }
 
 function createDefaultAdmin ($username, $password) {
     $admins = R::findAll( 'admin' );
     if($admins == []) {
-        $user = R::dispense( 'admin' );
-        $user->name = $username;
-        $user->password = password_hash($password, PASSWORD_BCRYPT);
-        return R::store( $user );
+        createAdmin($username, $password);
     }
 }
