@@ -10,14 +10,22 @@ $now->setTime(0 , 0, 0 , 0);
 foreach ($tasked as $t){
     $date = new DateTime($t->start);
     if($date == $now){        
-        $message = "Vous devez " . $t->task->name . " le " . $date->format('d m Y') . '.\n';
+        $message = "Vous devez " . $t->task->name . " le " . $date->format('d m Y') . '.\n' .
+                   "Visitez http://task-manager pour avoir accès à la plannification complète";
 
         $headers = array(
-            'From' => 'ramon.odermatt@lesjoux.ch',
-            'Reply-To' => 'ramon.odermatt@lesjoux.ch',
+            'From' => 'noreply@battenberg.ch',
+            'Reply-To' => 'noreply@battenberg.ch',
             'X-Mailer' => 'PHP/' . phpversion()
         );
-        mail($t->user->email, $t->task->name, $message, $headers);
+        
+        if (mail($t->user->email, $t->task->name, $message, $headers)){
+            echo "Message accepted";
+        }
+        else
+        {
+            echo "Error: Message not accepted";
+        }
     }
 }
 ?>
