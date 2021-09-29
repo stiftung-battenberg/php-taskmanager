@@ -97,6 +97,7 @@ function gennerateTasks($from, $to){
                     $users = array_merge($users, $group->ownUserList);
                 }
                 if($users != []) {
+                    $availableUser = getAvailableUser($users, $objDateTime->format('l'));
                     $userLeast = getUserWithLeastTask($users);
                     $tasked = R::dispense( 'tasked' );
                     $tasked->title = $userLeast->name; 
@@ -124,6 +125,18 @@ function checkRelation ($group, $groupList){
     }
 
     return $result;
+}
+
+function getAvailableUser($users, $weekday) {
+    $AvailableUser = [];
+    foreach ($users as $user) {
+        $weekdays = json_decode($user->weekdays);
+        if(in_array($weekday, $weekdays)) {
+            $AvailableUser[] = $user;
+        }
+    }
+    
+    return $AvailableUser;
 }
 
 /**

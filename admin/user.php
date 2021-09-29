@@ -24,23 +24,19 @@ if($_SESSION["login"]) {
 
             if ($_POST['action'] == 'alterUser') {
 
-                updateUser($_POST['id'], $_POST['name'], $_POST['email']);
+                updateUser($_POST['id'], $_POST['name'], $_POST['email'],  $_POST['weekdays']);
 
             } elseif ($_POST['action'] == 'deleteUser') {
 
                 deleteUser($_POST['id']);
 
             } elseif ($_POST['action'] == 'createUser') {
-
-                $u = createUser($_POST['name'], $_POST['email']);
+                
+                $u = createUser($_POST['name'], $_POST['email'], $_POST['weekdays']);
 
                 if(isset($_GET['group_id'])) { 
                     addUserToGroup($_GET['group_id'], $u);
                 }
-            } elseif ($_POST['action'] == 'addUserToGroup') {
-
-                addUserToGroup($_POST['idGroup'], $_POST['idUser']);
-
             }
 
         }

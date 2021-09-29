@@ -20,9 +20,44 @@
                 <label>Firstname and lastname</label>
                 <input type="text" class="form-control" id="name" name="name" value="<?php echo $u->name ?>" placeholder="Enter email">
             </div>
+            
             <div class="form-group">
                 <label for="exampleInputEmail1">Email address</label>
                 <input type="email" class="form-control" id="email" name="email" value="<?php echo $u->email ?>" placeholder="Enter email">
+            </div>
+
+            <div class="form-group mt-3">
+                <label>Weekday</label>
+                <div class="form-check">
+                    <input class="form-check-input" name="weekdays[]" type="checkbox" value="Monday" <?php if (in_array('Monday',json_decode($u->weekdays))) { echo 'checked';} ?>>
+                    <label class="form-check-label">
+                        Monday
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" name="weekdays[]" type="checkbox" value="Tuesday" <?php if (in_array('Tuesday',json_decode($u->weekdays))) { echo 'checked';} ?>>
+                    <label class="form-check-label">
+                        Tuesday
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" name="weekdays[]" type="checkbox" value="Wednesday" <?php if (in_array('Wednesday',json_decode($u->weekdays))) { echo 'checked';} ?>>
+                    <label class="form-check-label">
+                        Wednesday
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" name="weekdays[]" type="checkbox" value="Thursday" <?php if (in_array('Thursday',json_decode($u->weekdays))) { echo 'checked';} ?>>
+                    <label class="form-check-label">
+                        Thursday
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" name="weekdays[]" type="checkbox" value="Friday" <?php if (in_array('Friday',json_decode($u->weekdays))) { echo 'checked';} ?>>
+                    <label class="form-check-label">
+                        Friday
+                    </label>
+                </div>
             </div>
         </div>
         <div class="modal-footer">

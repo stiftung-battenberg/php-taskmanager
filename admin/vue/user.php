@@ -78,6 +78,39 @@
                     <label for="exampleInputEmail1">Email address</label>
                     <input type="email" class="form-control" id="email" name="email" value="" placeholder="Enter email">
                 </div>
+                <div class="form-group mt-3">
+                    <label>Weekdays</label>
+                    <div class="form-check">
+                        <input class="form-check-input" name="weekdays[]" type="checkbox" value="Monday">
+                        <label class="form-check-label">
+                            Monday
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" name="weekdays[]" type="checkbox" value="Tuesday">
+                        <label class="form-check-label">
+                            Tuesday
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" name="weekdays[]" type="checkbox" value="Wednesday">
+                        <label class="form-check-label">
+                            Wednesday
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" name="weekdays[]" type="checkbox" value="Thursday">
+                        <label class="form-check-label">
+                            Thursday
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" name="weekdays[]" type="checkbox" value="Friday">
+                        <label class="form-check-label">
+                            Friday
+                        </label>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
