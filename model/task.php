@@ -48,6 +48,9 @@ function updateTask ($id, $name, $color, $weekdays, $group_ids) {
  */
 function deleteTask($id) {
     $task = R::load( 'task', $id ); 
+    foreach($task->ownTaskedList as $tasked){
+        R::trash($tasked);
+    }
     R::trash($task);
 }
 

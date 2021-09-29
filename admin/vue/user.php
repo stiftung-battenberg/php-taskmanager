@@ -19,11 +19,35 @@
             <td><?php echo $u->name ?></td>
             <td><?php echo $u->email ?></td>
             <td><?php require 'partials/modalUser.php';?></td>
-            <td><form method="POST">
-                <input type="hidden"  name="id" value="<?php echo $u->id ?>">
-                <input type="hidden"  name="action"  value="deleteUser">
-                <button type="submit" class="btn btn-secondary">Delete</button>
-            </form></td>
+            <td>
+                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#deleteModal<?php echo $u->id ?>">
+                    Delete
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="deleteModal<?php echo $u->id ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Are you sure ?</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form method="POST">
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <form method="POST">
+                                    <input type="hidden"  name="id" value="<?php echo $u->id ?>">
+                                    <input type="hidden"  name="action"  value="deleteUser">
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                            </div>
+                        </form>
+                        </div>
+                    </div>
+                </div>   
+            </td>
             </tr>
 
         <?php } ?>
