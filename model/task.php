@@ -93,16 +93,17 @@ function gennerateTasks($from, $to){
                 foreach ($task->sharedGroup as $group) {
                     $users = array_merge($users, $group->ownUserList);
                 }
-
-                $userLeast = getUserWithLeastTask($users);
-                $tasked = R::dispense( 'tasked' );
-                $tasked->title = $userLeast->name; 
-                $tasked->user =  $userLeast;
-
-
-                $tasked->start = $objDateTime; 
-                $tasked->task = $task;
-                R::store($tasked);
+                if($users != []) {
+                    $userLeast = getUserWithLeastTask($users);
+                    $tasked = R::dispense( 'tasked' );
+                    $tasked->title = $userLeast->name; 
+                    $tasked->user =  $userLeast;
+    
+    
+                    $tasked->start = $objDateTime; 
+                    $tasked->task = $task;
+                    R::store($tasked);
+                }
             }
         }
         date_add($objDateTime, date_interval_create_from_date_string('1 days'));
