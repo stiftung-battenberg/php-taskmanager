@@ -98,15 +98,17 @@ function gennerateTasks($from, $to){
                 }
                 if($users != []) {
                     $availableUser = getAvailableUser($users, $objDateTime->format('l'));
-                    $userLeast = getUserWithLeastTask($users);
-                    $tasked = R::dispense( 'tasked' );
-                    $tasked->title = $userLeast->name; 
-                    $tasked->user =  $userLeast;
-    
-    
-                    $tasked->start = $objDateTime; 
-                    $tasked->task = $task;
-                    R::store($tasked);
+                    if($availableUser != []) {
+                        $userLeast = getUserWithLeastTask($availableUser);
+                        $tasked = R::dispense( 'tasked' );
+                        $tasked->title = $userLeast->name; 
+                        $tasked->user =  $userLeast;
+        
+        
+                        $tasked->start = $objDateTime; 
+                        $tasked->task = $task;
+                        R::store($tasked);
+                    }
                 }
             }
         }
