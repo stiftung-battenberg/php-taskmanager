@@ -133,8 +133,10 @@ function getAvailableUser($users, $weekday) {
     $AvailableUser = [];
     foreach ($users as $user) {
         $weekdays = json_decode($user->weekdays);
-        if(in_array($weekday, $weekdays)) {
-            $AvailableUser[] = $user;
+        if($weekdays) {
+            if(in_array($weekday, $weekdays)) {
+                $AvailableUser[] = $user;
+            }
         }
     }
     

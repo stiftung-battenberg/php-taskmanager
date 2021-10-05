@@ -10,6 +10,7 @@
             <a class="nav-link" href="/admin/task.php">Task</a>
             <a class="nav-link" href="/admin/callendar.php">Callendar</a>
             <a class="nav-link" href="/admin/admin.php">Admin</a>
+            <a class="nav-link" href="/admin/mail.php">Mail</a>
         </div>
         </div>
     </div>

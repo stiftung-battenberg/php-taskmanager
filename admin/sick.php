@@ -3,7 +3,7 @@ session_start();
 
 if($_SESSION["login"]) {
     require '../config.php';
-    include '../utils/connectdb.php';
+    require_once '../utils/connectdb.php';
     require '../model/task.php';
     require '../model/user.php';
 

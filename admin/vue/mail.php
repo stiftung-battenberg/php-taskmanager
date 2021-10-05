@@ -1,0 +1,12 @@
+<div class="container">
+    <h1 class="my-5">Email message </h1>
+    <h2>Special characters</h2>
+    <p>/name to add the username for the task</p>
+    <p>/date to add the date for the task</p>
+    <form method="POST">
+      <div class="form-group">
+        <textarea class="form-control" id="mail" rows="17" name="mail" rows="3"><?php echo $mail->text ?></textarea>
+      </div>
+      <input type="submit" class="btn btn-primary my-3">
+    </form>
+</div>

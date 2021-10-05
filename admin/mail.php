@@ -1,32 +1,25 @@
-<?php 
-require '../config.php';
-include '../utils/connectdb.php';
-require '../model/task.php';
+<?php
 
-$tasked= R::findall('tasked');
-$now = new DateTime('Today');
-$now->setTime(0 , 0, 0 , 0);
+session_start();
 
-foreach ($tasked as $t){
-    $date = new DateTime($t->start);
-    if($date == $now){        
-        $message = "Vous devez " . $t->task->name . " le " . $date->format('d m Y') . ".\r\n" .
-                   "Visitez http://task-manager pour avoir accès à la plannification complète \r\n \r\n" .
-                   "";
-
-        $headers = array(
-            'From' => 'Task Manager',
-            'Reply-To' => 'noreply@battenberg.ch',
-            'X-Mailer' => 'PHP/' . phpversion()
-        );
-        
-        if (mail($t->user->email, $t->task->name, $message, $headers)){
-            echo "Message accepted\r\n";
-        }
-        else
-        {
-            echo "Error: Message not accepted\r\n";
-        }
+if($_SESSION["login"]) {
+    require '../config.php';
+    require 'vue/partials/header.php';
+    include '../utils/connectdb.php';
+    require '../model/mail.php';
+    include 'vue/partials/nav.php';
+    
+    
+    createDefaultMail(DEFAULT_MAIL);
+    $mail = getMail();
+    
+    if(isset($_POST) && isset($_POST['mail'])) {
+        updateMail($_POST['mail']);
+        header("Refresh:0");
     }
-}
-?>
+
+    include 'vue/mail.php';
+    require 'vue/partials/footer.php';
+} else {
+    header("Location: /admin/");
+} 
