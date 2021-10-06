@@ -15,4 +15,4 @@ define('SMTP_PASS', 'ErdF[]09po');
 define('SMTP_HOST', 'smtp.gmail.com');
 
 //Default mail message
-define('DEFAULT_MAIL', "Vous devez /name le /date.\r\n Visitez http://task-manager pour avoir accès à la plannification complète \r\n \r\n");
+define('DEFAULT_MAIL', "Vous devez /name le /date.\r\n Visitez http://task-manager pour avoir accès à la planification complète \r\n \r\n");

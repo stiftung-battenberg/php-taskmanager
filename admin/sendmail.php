@@ -37,7 +37,8 @@ foreach ($tasked as $t){
             $body = str_replace('/date', $t->start, $body);
             
             $mail->Body = $body;
-                          
+            $mail->IsHTML(true);
+                    
             $mail->addAddress($t->user->email, $t->user->name);
             $mail->send();
             echo 'Email has been sent';

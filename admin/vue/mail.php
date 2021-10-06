@@ -5,7 +5,7 @@
     <p>/date to add the date for the task</p>
     <form method="POST">
       <div class="form-group">
-        <textarea class="form-control" id="mail" rows="17" name="mail" rows="3"><?php echo $mail->text ?></textarea>
+        <textarea class="form-control editor" id="mail" rows="17" name="mail" rows="3"><?php echo $mail->text ?></textarea>
       </div>
       <input type="submit" class="btn btn-primary my-3">
     </form>

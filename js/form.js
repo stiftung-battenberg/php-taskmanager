@@ -7,3 +7,7 @@ forms.forEach((form) => {
             evt.preventDefault()
     })
 })
+
+tinymce.init({
+    selector: '.editor'
+});
