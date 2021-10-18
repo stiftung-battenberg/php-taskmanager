@@ -11,30 +11,31 @@ require_once "../vendor/autoload.php";
 
 $tasked= R::findall('tasked');
 $now = new DateTime('Today');
-$now->setTime(0 , 0, 0 , 0);
+$now->setTime(0 , 0, 0, 0);
 
 foreach ($tasked as $t){
     $date = new DateTime($t->start);
     if($date == $now){   
         try {
             $mail = new PHPMailer(true); 
-            
+
             $mail->isSMTP();
             $mail->Host = SMTP_HOST;
             $mail->SMTPAuth = true;
             
             $mail->Username = SMTP_USER; 
             $mail->Password = SMTP_PASS;
-
+            
             $mail->SMTPSecure = 'ssl'; 
             $mail->Port = 465;
-    
+            
             $mail->Subject = $t->task->name;
             
             $body = getMail()->text;
-
+            
+            $mail->CharSet = 'utf-8';
             $body = str_replace('/name', $t->task->name, $body);
-            $body = str_replace('/date', $t->start, $body);
+            $body = str_replace('/date', (new DateTime($t->start))->format('d-m-y'), $body);
             
             $mail->Body = $body;
             $mail->IsHTML(true);
