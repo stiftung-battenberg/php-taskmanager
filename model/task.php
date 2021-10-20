@@ -98,6 +98,7 @@ function gennerateTasks($from, $to){
                 }
                 if($users != []) {
                     $availableUser = getAvailableUser($users, $objDateTime->format('l'));
+                    $availableUser = getUserWithoutVacation($availableUser, $objDateTime);
                     if($availableUser != []) {
                         $userLeast = getUserWithLeastTask($availableUser);
                         $tasked = R::dispense( 'tasked' );
@@ -135,12 +136,32 @@ function getAvailableUser($users, $weekday) {
         $weekdays = json_decode($user->weekdays);
         if($weekdays) {
             if(in_array($weekday, $weekdays)) {
+
                 $AvailableUser[] = $user;
             }
         }
     }
     
     return $AvailableUser;
+}
+
+function getUserWithoutVacation ($users, $date) {
+    $AvailableUser = [];
+    for($i = 0; $i < count($users); $i++){
+
+        $add = true;
+        foreach($users[$i]->ownVacationList as $vacation){
+            $checkdate = (new DateTime($vacation->start)) < $date && (new DateTime($vacation->end)) > $date; 
+            if($checkdate) {
+               $add = false;
+            }
+        }
+        if($add) {
+            $AvailableUser[] = $users[$i];
+        }
+    }
+
+    return $AvailableUser ;
 }
 
 /**

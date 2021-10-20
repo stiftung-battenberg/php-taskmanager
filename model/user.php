@@ -31,3 +31,6 @@ function getUserByGroup($group_id) {
     return R::find('user', 'group_id = '. $group_id);
 }
 
+function addVacationToUser ($user_id, $begin, $end) {
+    
+}

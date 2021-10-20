@@ -18,6 +18,7 @@
             <tr>
             <td><?php echo $u->name ?></td>
             <td><?php echo $u->email ?></td>
+            <td><a href="/admin/vacation.php?user_id=<?php echo $u->id ?>"><button class="btn btn-primary">vacation</button></a></td>
             <td><?php require 'partials/modalUser.php';?></td>
             <td>
                 <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#deleteModal<?php echo $u->id ?>">
