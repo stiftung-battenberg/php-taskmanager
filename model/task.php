@@ -240,6 +240,7 @@ function randomPersonForTask ($tasked_id) {
     $tasked->title = $user->name; 
     $tasked->user =  $user;
     R::store($tasked);
+    return $tasked;
 }
 /**
  * changes the current holder of a task for the given $user
@@ -252,4 +253,5 @@ function changePersonForTask ($tasked_id, $user) {
     $tasked->title = $user->name; 
     $tasked->user =  $user;
     R::store($tasked);
+    return $tasked;
 }

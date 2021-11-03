@@ -6,13 +6,16 @@ if($_SESSION["login"]) {
     require_once '../utils/connectdb.php';
     require '../model/task.php';
     require '../model/user.php';
+    require '../model/mail.php';
 
     if(isset($_POST['tasked_id'])){
-        randomPersonForTask( $_POST['tasked_id'] );
+        $t = randomPersonForTask( $_POST['tasked_id'] );
+        sendmail($t);
         header("Location: /admin/callendar.php");
     }
     if(isset($_POST['id_user'])){
-        changePersonForTask( $_GET['tasked_id'], $_POST['id_user']);
+        $t = changePersonForTask( $_GET['tasked_id'], $_POST['id_user']);
+        sendmail($t);
         header("Location: /admin/callendar.php");
     }
     

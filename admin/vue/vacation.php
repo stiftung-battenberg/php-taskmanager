@@ -12,10 +12,10 @@
             <?php foreach ( $vacations as $vacation ) { ?>
                 <tr>
                     <td>
-                        <?php echo $vacation->start ?>
+                        <?php echo (new DateTime($vacation->start))->format("d.m.y") ?>
                     </td>
                     <td>
-                        <?php echo $vacation->end ?>
+                        <?php echo (new DateTime($vacation->end))->format("d.m.y") ?>
                     </td>
                     <td>
                         <form method="POST">
