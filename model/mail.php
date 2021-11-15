@@ -37,7 +37,7 @@ function sendmail ($t) {
         $mail->Password = SMTP_PASS;
         
         $mail->SMTPSecure = 'ssl'; 
-        $mail->Port = 465;
+        $mail->Port = SMTP_PORT;
         
         $mail->Subject = $t->task->name;
         

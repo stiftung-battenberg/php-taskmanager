@@ -13,6 +13,7 @@ define('DB_NAME', 'taskmanager');
 define('SMTP_USER', 'ramon.odermatt.ged@gmail.com');
 define('SMTP_PASS', 'ErdF[]09po');
 define('SMTP_HOST', 'smtp.gmail.com');
+define('SMTP_PORT', 587);
 
 //Default mail message
 define('DEFAULT_MAIL', "Vous devez /name le /date.\r\n Visitez http://task-manager pour avoir accès à la planification complète \r\n \r\n");
