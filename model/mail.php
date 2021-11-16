@@ -30,14 +30,13 @@ function sendmail ($t) {
         $mail = new PHPMailer(true); 
 
         $mail->isSMTP();
-        $mail->Host = SMTP_HOST;
         $mail->SMTPAuth = true;
-        
+        $mail->SMTPSecure = SMTP_SECU; 
+        $mail->Host = SMTP_HOST;
+        $mail->Port = SMTP_PORT;
         $mail->Username = SMTP_USER; 
         $mail->Password = SMTP_PASS;
         
-        $mail->SMTPSecure = 'ssl'; 
-        $mail->Port = SMTP_PORT;
         
         $mail->Subject = $t->task->name;
         
