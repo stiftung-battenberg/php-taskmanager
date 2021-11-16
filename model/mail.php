@@ -36,7 +36,8 @@ function sendmail ($t) {
         $mail->Port = SMTP_PORT;
         $mail->Username = SMTP_USER; 
         $mail->Password = SMTP_PASS;
-        
+        $mail->From = SMTP_USER;
+        $mail->FromName = "Task Manager";
         
         $mail->Subject = $t->task->name;
         
