@@ -12,6 +12,9 @@
             <a class="nav-link" href="/admin/admin.php">Admin</a>
             <a class="nav-link" href="/admin/mail.php">Mail</a>
         </div>
+        <div class="float-right">
+            <a class="nav-link" href="/admin/logout.php">logout</a>
+        </div>
         </div>
     </div>
 </nav>

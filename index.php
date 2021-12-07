@@ -20,6 +20,7 @@ $task = getTasks();
     
 </script>
 <div class="container mt-5">
+    <a href="/admin">Login</a>
     <h2>Index</h2>
     <?php foreach ($task as $t) { ?>
         <div class="badge" style="background-color: <?php echo $t->color ?>;">
