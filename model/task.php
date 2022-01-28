@@ -236,6 +236,8 @@ function randomPersonForTask ($tasked_id) {
     foreach ($tasked->task->sharedGroup as $group) {
         $users = array_merge($users, $group->ownUserList);
     }
+    $users = getAvailableUser($users, (new DateTime($tasked->date))->format('l'));
+    $users = getUserWithoutVacation($users, $tasked->date);
     $user = getUserWithLeastTask($users);
     $tasked->title = $user->name; 
     $tasked->user =  $user;
